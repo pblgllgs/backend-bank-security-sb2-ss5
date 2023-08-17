@@ -16,7 +16,7 @@ public class LoginController {
 
     private final CustomerRepository customerRepository;
 
-    @RequestMapping("/user")
+    @RequestMapping("/api/user")
     public Customer getUserDetailsAfterLogin(Principal user) {
         List<Customer> customers = customerRepository.findByEmail(user.getName());
         if (!customers.isEmpty()) {
