@@ -15,9 +15,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.util.StringUtils;
 
+@Slf4j
 public class RequestValidationBeforeFilter implements Filter {
 
     public static final String AUTHENTICATION_SCHEME_BASIC = "Basic";
