@@ -1,5 +1,8 @@
 package com.pblgllgs.backendbanksecuritysb2.config;
 
+import com.pblgllgs.backendbanksecuritysb2.filters.AuthoritiesLoggingAfterFilter;
+import com.pblgllgs.backendbanksecuritysb2.filters.AuthoritiesLoggingAtFilter;
+import com.pblgllgs.backendbanksecuritysb2.filters.RequestValidationBeforeFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -7,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
@@ -17,7 +21,8 @@ public class SecurityFilterChainConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .cors(Customizer.withDefaults())
-                .csrf().ignoringAntMatchers("/api/contact").csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrf().ignoringAntMatchers("/api/contact")
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers("/api/myAccount").hasRole("USER")
@@ -27,6 +32,9 @@ public class SecurityFilterChainConfig {
                         .antMatchers("/api/user").authenticated()
                         .antMatchers("/api/notices", "/api/contact").permitAll()
                 )
+                .addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .httpBasic(Customizer.withDefaults());
         return http.build();
 
