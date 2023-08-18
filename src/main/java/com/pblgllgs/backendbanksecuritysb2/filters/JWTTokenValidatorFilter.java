@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Slf4j
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
@@ -58,7 +59,8 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getServletPath().equals("/api/user");
+        List<String> urls =List.of("/api/user","/api/contact","/api/notices");
+        return urls.contains(request.getServletPath());
     }
 
 
