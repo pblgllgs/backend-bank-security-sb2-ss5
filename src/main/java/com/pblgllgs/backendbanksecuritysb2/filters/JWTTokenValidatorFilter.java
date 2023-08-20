@@ -27,8 +27,7 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        String jwt = request.getHeader(SecurityConstants.JWT_HEADER);
-        log.info(String.format("Acá llega el token: %s",jwt));
+        String jwt = request.getHeader(SecurityConstants.JWT_HEADER).substring(7);
         if (null != jwt) {
             try {
                 SecretKey key = Keys.hmacShaKeyFor(
@@ -40,9 +39,7 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
                         .parseClaimsJws(jwt)
                         .getBody();
                 String username = String.valueOf(claims.get("username"));
-                log.info(username);
                 String authorities = (String) claims.get("authorities");
-                log.info(authorities);
                 Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
                         AuthorityUtils.commaSeparatedStringToAuthorityList(authorities));
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -50,8 +47,6 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
                 throw new BadCredentialsException("Invalid Token received!");
             }
 
-        }else{
-            throw new BadCredentialsException("Token is null!");
         }
         chain.doFilter(request, response);
     }
@@ -62,6 +57,5 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
         List<String> urls =List.of("/api/user","/api/contact","/api/notices");
         return urls.contains(request.getServletPath());
     }
-
 
 }
