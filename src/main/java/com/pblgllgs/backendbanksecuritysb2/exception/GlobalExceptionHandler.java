@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
     ) {
         ErrorResponse ErrorResponse = new ErrorResponse(
                 request.getRequestURI(),
+                e.getClass().getSimpleName(),
                 e.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()

@@ -1,6 +1,37 @@
 INSERT INTO `customer` (`customer_id`,`name`,`email`,`mobile_number`, `pwd`, `role`,`create_dt`)
 VALUES (1,'Happy','happy@example.com','9876548337', '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2', 'admin',CURDATE());
 
+INSERT INTO `customer` (`customer_id`,`name`,`email`,`mobile_number`, `pwd`, `role`,`create_dt`)
+VALUES (
+2,
+'root',
+'root@example.com',
+'9876548337',
+ '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2',
+  'root',
+  CURDATE()
+  );
+INSERT INTO `customer` (`customer_id`,`name`,`email`,`mobile_number`, `pwd`, `role`,`create_dt`)
+VALUES (
+3,
+'user',
+'user@example.com',
+'9876548337',
+ '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2',
+  'user',
+  CURDATE()
+  );
+  INSERT INTO `customer` (`customer_id`,`name`,`email`,`mobile_number`, `pwd`, `role`,`create_dt`)
+VALUES (
+4,
+'admin',
+'admin@example.com',
+'9876548337',
+ '$2y$12$oRRbkNfwuR8ug4MlzH5FOeui.//1mkd.RsOAJMbykTSupVy.x/vb2',
+  'admin',
+  CURDATE()
+  );
+
 INSERT INTO `accounts` (`customer_id`, `account_number`, `account_type`, `branch_address`, `create_dt`)
 VALUES (1, 186576453434, 'Savings', '123 Main Street, New York', CURDATE());
 

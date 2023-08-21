@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @Configuration
 public class SecurityFilterChainConfig {
 
+    private static final String ADMIN_ROLE = "ADMIN";
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -26,10 +28,10 @@ public class SecurityFilterChainConfig {
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/api/myAccount").hasRole("USER")
-                        .antMatchers("/api/myBalance").hasAnyRole("USER", "ADMIN")
+                        .antMatchers("/api/myAccount").hasAnyRole("USER","ROOT",ADMIN_ROLE)
+                        .antMatchers("/api/myBalance").hasAnyRole("ROOT", ADMIN_ROLE)
                         .antMatchers("/api/myLoans").hasRole("ROOT")
-                        .antMatchers("/api/myCards").authenticated()
+                        .antMatchers("/api/myCards").hasRole(ADMIN_ROLE)
                         .antMatchers("/api/user").authenticated()
                         .antMatchers("/api/notices", "/api/contact").permitAll()
                 )
