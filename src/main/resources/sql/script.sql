@@ -99,3 +99,10 @@ VALUES (5,'Launch of Millennia Cards', 'Millennia Credit Cards are launched for 
 INSERT INTO `notice_details` (`notice_id`, `notice_summary`, `notice_details`, `notic_beg_dt`, `notic_end_dt`, `create_dt`, `update_dt`)
 VALUES (6,'COVID-19 Insurance', 'EazyBank launched an insurance policy which will cover COVID-19 expenses. Please reach out to the branch for more details',
         CURDATE() - INTERVAL 30 DAY, CURDATE() + INTERVAL 30 DAY, CURDATE(), null);
+
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (4, 'ROLE_ADMIN', 4);
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (6, 'ROLE_USER', 3);
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (5, 'ROLE_ROOT', 2);
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (1, 'ROLE_USER', 1);
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (2, 'ROLE_ADMIN', 1);
+INSERT INTO `authorities` (`id`, `name`, `customer_id`) VALUES (3, 'ROLE_ROOT', 1);
